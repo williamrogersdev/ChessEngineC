@@ -1,9 +1,12 @@
-#ifdef DEFS_H
+
+
+#ifndef DEFS_H
 #define DEFS_H
 
 //defined 64 bit integer
 
 typedef unsigned long long U64;
+
 
 #define NAME 'C Chess Engine'
 #define BRD_SQ_NUM 120
@@ -82,6 +85,26 @@ typedef struct {
 S_UNDO history[MAXGAMEMOVES]; // history of moves. Everyone time a move is made, it is stored in the history array
 
 } S_BOARD;
+
+
+//macros
+
+#define FR2SQ(f,r) ( (21 + (f) ) + ( (r) * 10 ) )
+
+
+
+//globals
+
+//arrasy that go from 120 to 64 and vice versa
+
+extern int Sq120ToSq64[BRD_SQ_NUM];
+extern int Sq64ToSq120[64];
+
+
+
+//functions
+
+extern void AllInit();
 
 
 #endif
