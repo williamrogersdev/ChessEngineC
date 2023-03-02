@@ -8,20 +8,18 @@ typedef unsigned long long U64;
 #define NAME 'C Chess Engine'
 #define BRD_SQ_NUM 120
 
-//enum for piece types
+#define MAXGAMEMOVES 2048
 
-enum {EMPTY, wP, wN, wB, wR, wQ, wK, bP, bN, bB, bR, bQ, bK};
+//enum for piece types
+enum {EMPTY, wP, wN, wB, wR, wQ, wK, bP, bN, bB, bR, bQ, bK}; 
 
 //file definitions
-
 enum {FILE_A, FILE_B, FILE_C, FILE_D, FILE_E, FILE_F, FILE_G, FILE_H, FILE_NONE};
 
 //rank definitions
-
 enum {RANK_1, RANK_2, RANK_3, RANK_4, RANK_5, RANK_6, RANK_7, RANK_8, RANK_NONE};
 
 //color definitions
-
 enum {WHITE, BLACK, BOTH};
 
 
@@ -41,6 +39,24 @@ enum {
 
 enum {FALSE, TRUE};
 
+//represeneted by 4 bits
+// 1001 = white can castle kingside, black can castle queenside
+
+    enum {WKCA = 1, WQCA = 2, BKCA = 4, BQCA = 8}; // castling permissions for kings.  Queenside and Kingside castling
+
+
+
+// Ability to undo moves
+    typedef struct {
+
+        int move;
+        int castlePerm;
+        int enPas;
+        int fiftyMove;
+        U64 posKey;
+
+    } S_UNDO;
+
 
 typedef struct {
 
@@ -53,6 +69,7 @@ typedef struct {
     int ply; // half moves
     int hisPly; // keeping track of how manymoves have been made
     U64 posKey; // unique key for each position
+    int castlePerm; // castling permissions
 
 
     int pceNum[13]; // number of pieces on the board
@@ -60,6 +77,9 @@ typedef struct {
     int bigPce[3]; // number of big pieces on the board. .Any piece that is not a pawn
     int majPce[3]; // number of major pieces on the board. . Rooks and Queens
     int minPce[3]; // number of minor pieces on the board. . Bishops and Knights
+
+
+S_UNDO history[MAXGAMEMOVES]; // history of moves. Everyone time a move is made, it is stored in the history array
 
 } S_BOARD;
 
