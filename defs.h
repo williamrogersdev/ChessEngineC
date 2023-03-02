@@ -42,4 +42,26 @@ enum {
 enum {FALSE, TRUE};
 
 
+typedef struct {
+
+    int pieces[BRD_SQ_NUM];
+    U64 pawns[3]; // 1 bit for each pawn on the board
+    int KingSq[2];
+    int side;
+    int enPas;
+    int fiftyMove; // fifty move rule. if 50 moves have been made without a capture or pawn move, the game is a draw
+    int ply; // half moves
+    int hisPly; // keeping track of how manymoves have been made
+    U64 posKey; // unique key for each position
+
+
+    int pceNum[13]; // number of pieces on the board
+
+    int bigPce[3]; // number of big pieces on the board. .Any piece that is not a pawn
+    int majPce[3]; // number of major pieces on the board. . Rooks and Queens
+    int minPce[3]; // number of minor pieces on the board. . Bishops and Knights
+
+} S_BOARD;
+
+
 #endif
