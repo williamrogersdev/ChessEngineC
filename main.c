@@ -3,7 +3,10 @@
 
 int main()
 {
-  
-return 0;
 
-    }
+    All_Init();
+
+    return 0;
+
+}
+  
